@@ -163,6 +163,18 @@ form.input button {
 .link-card .s { font-size: 13px; color: var(--muted); }
 .link-card.soon { border-style: dashed; }
 footer { font-size: 13px; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 8px; }
+.stat { display: flex; flex-direction: column; gap: 4px; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.stat b { font-family: var(--display); font-weight: 500; font-size: 22px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.stack-groups { display: flex; flex-direction: column; gap: 14px; }
+.sg { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: baseline; }
+.edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.edu > div { display: flex; flex-direction: column; gap: 4px; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.edu p { font-size: 15px; }
+@media (max-width: 720px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .sg, .edu { grid-template-columns: 1fr; gap: 6px; } }
+
 
 @media (max-width: 560px) {
   .facts, .links { grid-template-columns: 1fr; }
@@ -179,16 +191,23 @@ footer { font-size: 13px; color: var(--muted); }
   <header>
     <span class="label">Fullstack / AI engineer</span>
     <h1>Никита Балыкин</h1>
-    <p class="role">Делаю llm-продукты в прод: <b>rag, агенты, интеграции</b>. Последние полгода один построил и веду <b>Sevora</b>, b2b-чат-бота для сайтов с платящими клиентами.</p>
+    <p class="role">Делаю llm-продукты в прод: <b>rag, агенты, интеграции</b>. С января 2026 один построил и веду <b>Sevora</b>, b2b-чат-бота для сайтов с платящими клиентами. До этого 5 лет во фронтенде продуктовых компаний.</p>
     <div class="meta">
-      <span>Москва</span>
-      <span>5,5 лет коммерческого опыта</span>
-      <span>remote, контракт, фриланс, аутстаф</span>
+      <span>Москва, без переезда</span>
+      <span>5 лет 9 месяцев коммерческого опыта</span>
+      <span>удалённо или гибрид</span>
+      <span>полная занятость, контракт, фриланс</span>
     </div>
     <div class="contacts">
       <a class="chip" href="https://t.me/nbalykos" target="_blank" rel="noopener"><span class="k">tg</span>@nbalykos</a>
       <button class="chip" type="button" id="copy-email" data-copy="balykin230195@gmail.com"><span class="k">email</span><span>balykin230195@gmail.com</span></button>
       <a class="chip" href="https://sevora-ai.ru" target="_blank" rel="noopener"><span class="k">проект</span>sevora-ai.ru</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>60–70%</b><span>обращений бот закрывает без оператора</span></div>
+      <div class="stat"><b>3–5×</b><span>быстрее разработка с claude code</span></div>
+      <div class="stat"><b>0</b><span>security-инцидентов с запуска в прод</span></div>
+      <div class="stat"><b>20 → 65%</b><span>покрытие тестами в Актионе</span></div>
     </div>
   </header>
 
@@ -208,12 +227,14 @@ footer { font-size: 13px; color: var(--muted); }
 
   <section aria-labelledby="sevora-h">
     <h2 id="sevora-h">Sevora</h2>
-    <p>Встраиваемый ИИ-консультант для сайтов бизнеса. Мультитенантный бэкенд, дашборд для клиентов, виджет ставится одной строкой. Архитектура, код, деплой, биллинг и общение с клиентами на мне. Генерация на gpt-5.4-mini через relay, база и персональные данные в Yandex Cloud.</p>
+    <p>Встраиваемый ИИ-консультант для сайтов бизнеса. Мультитенантный бэкенд, дашборд для клиентов (настройки бота, диалоги, заявки, статистика), виджет ставится одной строкой. Архитектура, код, деплой, биллинг, поддержка и общение с клиентами на мне.</p>
     <div class="facts">
-      <div class="fact"><h3>Гибридный rag</h3><p>dense + sparse с rrf в qdrant, reranker jina, parent-child чанкование. Бот закрывает 60–70% первичных обращений без оператора.</p></div>
-      <div class="fact"><h3>Маскинг персональных данных</h3><p>Отдельный ner-сервис на presidio. Маскинг обратимый, сырые данные не покидают RU-инфраструктуру.</p></div>
+      <div class="fact"><h3>Гибридный rag</h3><p>dense + sparse с rrf в qdrant, reranker jina, parent-child чанкование. База знаний из обхода сайта или Google Sheets.</p></div>
+      <div class="fact"><h3>Маскинг персональных данных</h3><p>Отдельный ner-сервис на presidio. Маскинг обратимый, сырые данные остаются в Yandex Cloud, в openai уходит только замаскированный текст.</p></div>
       <div class="fact"><h3>Изоляция клиентов</h3><p>Тенант определяется по api_key в middleware, каждый поиск в qdrant фильтруется по product_slug.</p></div>
-      <div class="fact"><h3>Биллинг по диалогам</h3><p>Считаю логические диалоги, а не токены. Лимиты тарифов, уведомления на 80 и 100%.</p></div>
+      <div class="fact"><h3>Биллинг по диалогам</h3><p>Считаю логические диалоги, а не токены. Лимиты тарифов, уведомления на 80 и 100%, никаких списаний на временных ошибках.</p></div>
+      <div class="fact"><h3>Каскад моделей</h3><p>Дешёвая модель на роутинг запроса, основная (gpt-5.4-mini) только на генерацию ответа. Снизил стоимость запроса.</p></div>
+      <div class="fact"><h3>Прод без сюрпризов</h3><p>github actions с двухфазным cutover: build → integration tests → swap → smoke. sentry, vector → better stack, watchdog перезапускает упавшие сервисы.</p></div>
     </div>
     <div class="pii" aria-label="Пример маскинга">
       <div class="pii-row"><span class="k">от клиента</span><span class="v">Здравствуйте, я <span class="raw">Анна Смирнова</span>, перезвоните на <span class="raw">+7 916 000-00-00</span></span></div>
@@ -224,51 +245,60 @@ footer { font-size: 13px; color: var(--muted); }
 
   <section aria-labelledby="how-h">
     <h2 id="how-h">Как я работаю с ai</h2>
-    <p>Пишу код через claude code, но с дисциплиной: план до кода, узкие роли, проверка независимым ревьюером. Собрал для этого свои скиллы:</p>
+    <p>claude code уже год мой основной инструмент. Работаю с дисциплиной: план до кода, узкие роли, проверка независимым ревьюером. Понимаю, где ai экономит часы, а где выдаёт мусор и нужна ручная доводка. Собрал для этого свои скиллы:</p>
     <div class="facts">
       <div class="fact"><h3>grill-me</h3><p>Допрашивает план по каждой ветке решений, пока в нём не останется дыр. Любая задача со схемой БД или новым эндпоинтом идёт через него.</p></div>
       <div class="fact"><h3>local-review</h3><p>Независимый субагент ревьюит незакоммиченный diff. Для auth и потока персональных данных добавляется security review.</p></div>
     </div>
-    <p>Решения фиксирую в ADR, архитектурные доки синхронизирую с кодом. По скорости это в 3–5 раз быстрее, чем я работал раньше.</p>
+    <p>Решения фиксирую в ADR, отдельный скилл синхронизирует архитектурную документацию с кодом.</p>
   </section>
 
   <section aria-labelledby="exp-h">
     <h2 id="exp-h">Опыт</h2>
     <div class="jobs">
       <div class="job">
-        <span class="when">04.2026 — сейчас</span>
-        <div><h3>Sevora</h3><div class="pos">основатель, единственный разработчик</div>
-          <ul><li>b2b saas с нуля до прода и платящих клиентов за полгода</li><li>node.js, typescript, postgresql, qdrant, docker, github actions</li></ul></div>
+        <span class="when">01.2026 — сейчас</span>
+        <div><h3>Sevora</h3><div class="pos">founder, fullstack ai engineer</div>
+          <ul><li>b2b saas с нуля до прода и платящих клиентов, один на всём цикле</li><li>rag-пайплайн, маскинг персональных данных, биллинг по диалогам, каскад моделей</li><li>ci/cd, мониторинг и автоперезапуск сервисов</li><li>работа с клиентами и превращение их фидбэка в роадмап</li></ul></div>
       </div>
       <div class="job">
-        <span class="when">10.2025 — 03.2026</span>
+        <span class="when">10.2025 — 12.2025</span>
         <div><h3>Самостоятельные проекты</h3><div class="pos">автоматизация и генеративные модели</div>
           <ul><li>платный заказ на n8n: новая запись встречи в облаке → аудио → whisper → разметка спикеров → саммари в телеграм и на почту, без ручных шагов</li><li>open-source llm (qwen и другие) на арендованных GPU в runpod</li><li>генерация изображений и видео: обучение LoRA, апскейл, доработка пайплайнов ComfyUI, Higgsfield</li></ul></div>
       </div>
       <div class="job">
         <span class="when">01.2024 — 09.2025</span>
         <div><h3>Актион Технологии</h3><div class="pos">frontend engineer</div>
-          <ul><li>миграция с class components на next.js, legacy меньше примерно на 40%</li><li>покрытие тестами критичных модулей с 20% до 65%</li><li>TTI быстрее на 25% после профилирования web-vitals</li></ul></div>
+          <ul><li>миграция с class components на next.js, legacy меньше примерно на 40%</li><li>покрытие jest-тестами критичных модулей с 20% до 65%, меньше регрессий в проде</li><li>TTI быстрее на 25% после профилирования web-vitals</li><li>перевёл работу с API на react query</li><li>переделал работу с видео: единый API-метод, общий хук для разных источников и переиспользуемый компонент</li><li>наставничество стажёров, code review</li><li>claude и cursor в работе: проектные инструкции, контекстные файлы и правила для предсказуемого рефакторинга legacy</li></ul></div>
       </div>
       <div class="job">
         <span class="when">01.2022 — 12.2023</span>
-        <div><h3>ФКУ СОЦТЕХ</h3><div class="pos">frontend-разработчик</div>
-          <ul><li>внедрил storybook и ui-каталог, настроил линтинг и ci</li></ul></div>
+        <div><h3>ФКУ СОЦТЕХ</h3><div class="pos">frontend-разработчик, проекты Минтруда</div>
+          <ul><li>внедрил storybook и ui-каталог: быстрее онбординг, больше переиспользования</li><li>настроил линтинг и ci, меньше регрессий на релизах</li><li>интеграции с REST API и аналитикой</li><li>декомпозиция и оценка задач, наставничество джуниоров</li></ul></div>
       </div>
       <div class="job">
         <span class="when">09.2020 — 11.2021</span>
         <div><h3>ИБДА РАНХиГС</h3><div class="pos">frontend-разработчик</div>
-          <ul><li>MVP без документации, сдан в срок</li></ul></div>
+          <ul><li>MVP без документации и с неполными требованиями, запущен в срок</li><li>внедрил unit-тестирование</li><li>интеграция фронтенда с бэкендом на node.js и postgresql</li></ul></div>
       </div>
     </div>
   </section>
 
   <section aria-labelledby="stack-h">
     <h2 id="stack-h">Стек</h2>
-    <div class="stack">
-      <span class="hl">typescript</span><span class="hl">node.js</span><span class="hl">rag</span><span class="hl">qdrant</span><span class="hl">openai api</span><span class="hl">claude api</span>
-      <span>python</span><span>express</span><span>postgresql</span><span>redis</span><span>docker</span><span>nginx</span><span>github actions</span><span>sentry</span>
-      <span>react</span><span>next.js</span><span>redux toolkit</span><span>react query</span><span>jest</span><span>storybook</span><span>n8n</span><span>whisper</span><span>comfyui</span><span>runpod</span>
+    <div class="stack-groups">
+      <div class="sg"><span class="label">ai</span><div class="stack"><span class="hl">rag</span><span class="hl">openai api</span><span class="hl">claude api</span><span class="hl">claude code</span><span>mcp</span><span>qdrant</span><span>reranking</span><span>prompt engineering</span><span>n8n</span><span>whisper</span><span>comfyui</span><span>runpod</span></div></div>
+      <div class="sg"><span class="label">бэкенд</span><div class="stack"><span class="hl">typescript</span><span class="hl">node.js</span><span>express</span><span>python</span><span>postgresql</span><span>redis</span><span>supabase</span><span>rest api</span><span>webhooks</span></div></div>
+      <div class="sg"><span class="label">инфра</span><div class="stack"><span>docker</span><span>nginx</span><span>github actions</span><span>gitlab ci</span><span>sentry</span><span>better stack</span><span>git</span></div></div>
+      <div class="sg"><span class="label">фронтенд</span><div class="stack"><span class="hl">react</span><span class="hl">next.js</span><span>redux toolkit</span><span>react query</span><span>react hook form</span><span>mobx</span><span>jest</span><span>react testing library</span><span>storybook</span><span>scss</span><span>webpack</span><span>esbuild</span></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="edu-h">
+    <h2 id="edu-h">Образование и языки</h2>
+    <div class="edu">
+      <div><span class="label">2017</span><p>Воронежский государственный архитектурно-строительный университет, техносферная безопасность</p></div>
+      <div><span class="label">языки</span><p>русский родной, английский B2</p></div>
     </div>
   </section>
 
@@ -283,6 +313,7 @@ footer { font-size: 13px; color: var(--muted); }
 
   <footer>Никита, тг @nbalykos</footer>
 </div>
+
 
 <script>
 (function () {
