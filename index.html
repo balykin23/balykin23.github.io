@@ -154,7 +154,7 @@ form.input button {
 .stack span { padding: 5px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
 .stack span.hl { border-color: var(--accent); color: var(--accent); }
 
-.links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .link-card {
   display: flex; flex-direction: column; gap: 4px; padding: 16px; text-decoration: none;
   background: var(--surface); border: 1px solid var(--line); border-radius: 12px; color: var(--ink);
@@ -305,9 +305,8 @@ footer { font-size: 13px; color: var(--muted); }
   <section aria-labelledby="links-h">
     <h2 id="links-h">Ещё</h2>
     <div class="links">
-      <div class="link-card soon"><b>GitHub</b><span class="s">скиллы и rag-пайплайн, скоро</span></div>
-      <div class="link-card soon"><b>Резюме на hh</b><span class="s">ссылка будет здесь</span></div>
-      <div class="link-card soon"><b>PDF</b><span class="s">для тех, кому удобнее файл</span></div>
+      <a class="link-card" href="https://hh.ru/resume/b4124de9ff099e62d60039ed1f3369796b7355" target="_blank" rel="noopener"><b>Резюме на hh ↗</b><span class="s">hh.ru</span></a>
+      <a class="link-card" href="nikita-balykin-cv.pdf" target="_blank" rel="noopener"><b>PDF ↗</b><span class="s">для тех, кому удобнее файл</span></a>
     </div>
   </section>
 
