@@ -191,12 +191,12 @@ footer { font-size: 13px; color: var(--muted); }
   <header>
     <span class="label">Fullstack / AI engineer</span>
     <h1>Никита Балыкин</h1>
-    <p class="role">Делаю llm-продукты в прод: <b>rag, агенты, интеграции</b>. С января 2026 один построил и веду <b>Sevora</b>, b2b-чат-бота для сайтов с платящими клиентами. До этого 5 лет во фронтенде продуктовых компаний.</p>
+    <p class="role">Делаю llm-продукты в прод: <b>rag, агенты, интеграции</b>. С января 2026 один построил и веду <b>Sevora</b>, b2b-чат-бота для сайтов с платящими клиентами. До этого 5 лет во фронтенде продуктовых компаний. Ищу фултайм: Sevora к выходу передам на сопровождение или поставлю на паузу.</p>
     <div class="meta">
       <span>Москва, без переезда</span>
-      <span>5 лет 9 месяцев коммерческого опыта</span>
+      <span>6 лет коммерческого опыта</span>
       <span>удалённо или гибрид</span>
-      <span>полная занятость, контракт, фриланс</span>
+      <span>полная занятость</span>
     </div>
     <div class="contacts">
       <a class="chip" href="https://t.me/nbalykos" target="_blank" rel="noopener"><span class="k">tg</span>@nbalykos</a>
@@ -204,10 +204,10 @@ footer { font-size: 13px; color: var(--muted); }
       <a class="chip" href="https://sevora-ai.ru" target="_blank" rel="noopener"><span class="k">проект</span>sevora-ai.ru</a>
     </div>
     <div class="stats">
-      <div class="stat"><b>60–70%</b><span>обращений бот закрывает без оператора</span></div>
+      <div class="stat"><b>60–70%</b><span>обращений бот закрывает без оператора, по логам диалогов</span></div>
+      <div class="stat"><b>~5</b><span>лидов в день у крупного b2b-клиента, включая ночные</span></div>
       <div class="stat"><b>3–5×</b><span>быстрее разработка с claude code</span></div>
       <div class="stat"><b>0</b><span>security-инцидентов с запуска в прод</span></div>
-      <div class="stat"><b>20 → 65%</b><span>покрытие тестами в Актионе</span></div>
     </div>
   </header>
 
@@ -227,14 +227,16 @@ footer { font-size: 13px; color: var(--muted); }
 
   <section aria-labelledby="sevora-h">
     <h2 id="sevora-h">Sevora</h2>
-    <p>Встраиваемый ИИ-консультант для сайтов бизнеса. Мультитенантный бэкенд, дашборд для клиентов (настройки бота, диалоги, заявки, статистика), виджет ставится одной строкой. Архитектура, код, деплой, биллинг, поддержка и общение с клиентами на мне.</p>
+    <p>Встраиваемый ИИ-консультант для сайтов бизнеса: мультитенантный бэкенд, реальные платящие клиенты, прод 24/7. Собственный продукт, веду один: архитектура, разработка, деплой, биллинг, внедрение у клиентов и поддержка. Отвечаю за результат целиком, от разговора с заказчиком до разбора инцидентов на проде.</p>
     <div class="facts">
-      <div class="fact"><h3>Гибридный rag</h3><p>dense + sparse с rrf в qdrant, reranker jina, parent-child чанкование. База знаний из обхода сайта или Google Sheets.</p></div>
+      <div class="fact"><h3>Гибридный rag</h3><p>dense + sparse с rrf в qdrant, reranker jina, parent-child чанкование. Свой краулер сайтов клиентов с дедупом и защитой от SSRF, плюс синк из Google Sheets.</p></div>
       <div class="fact"><h3>Маскинг персональных данных</h3><p>Отдельный ner-сервис на presidio. Маскинг обратимый, сырые данные остаются в Yandex Cloud, в openai уходит только замаскированный текст.</p></div>
+      <div class="fact"><h3>Агентная логика</h3><p>tool calling во внешние API клиентов, память диалога, structured output по схеме с валидацией кодом, гардрейлы и эскалация оператору.</p></div>
       <div class="fact"><h3>Изоляция клиентов</h3><p>Тенант определяется по api_key в middleware, каждый поиск в qdrant фильтруется по product_slug.</p></div>
       <div class="fact"><h3>Биллинг по диалогам</h3><p>Считаю логические диалоги, а не токены. Лимиты тарифов, уведомления на 80 и 100%, никаких списаний на временных ошибках.</p></div>
       <div class="fact"><h3>Каскад моделей</h3><p>Дешёвая модель на роутинг запроса, основная (gpt-5.4-mini) только на генерацию ответа. Снизил стоимость запроса.</p></div>
-      <div class="fact"><h3>Прод без сюрпризов</h3><p>github actions с двухфазным cutover: build → integration tests → swap → smoke. sentry, vector → better stack, watchdog перезапускает упавшие сервисы.</p></div>
+      <div class="fact"><h3>Виджет и дашборд</h3><p>Виджет встраивается одной строкой: стриминг ответа, изоляция стилей в Shadow DOM. Дашборд клиента: диалоги, лиды, статистика, тарифы.</p></div>
+      <div class="fact"><h3>Наблюдаемость и деплой</h3><p>Сквозной трейсинг: один trace_id через маскинг, ретрив, промпт и ответ. github actions с двухфазным cutover, sentry, better stack, watchdog с автоперезапуском.</p></div>
     </div>
     <div class="pii" aria-label="Пример маскинга">
       <div class="pii-row"><span class="k">от клиента</span><span class="v">Здравствуйте, я <span class="raw">Анна Смирнова</span>, перезвоните на <span class="raw">+7 916 000-00-00</span></span></div>
@@ -258,13 +260,13 @@ footer { font-size: 13px; color: var(--muted); }
     <div class="jobs">
       <div class="job">
         <span class="when">01.2026 — сейчас</span>
-        <div><h3>Sevora</h3><div class="pos">founder, fullstack ai engineer</div>
-          <ul><li>b2b saas с нуля до прода и платящих клиентов, один на всём цикле</li><li>rag-пайплайн, маскинг персональных данных, биллинг по диалогам, каскад моделей</li><li>ci/cd, мониторинг и автоперезапуск сервисов</li><li>работа с клиентами и превращение их фидбэка в роадмап</li></ul></div>
+        <div><h3>Sevora</h3><div class="pos">fullstack / ai engineer, собственный продукт</div>
+          <ul><li>b2b saas с нуля до прода и платящих клиентов, один на всём цикле</li><li>бот закрывает 60–70% первичных обращений, у крупного клиента около 5 лидов в день</li><li>rag-пайплайн, агентная логика с tool calling, маскинг персональных данных</li><li>снизил стоимость запроса каскадом моделей и биллингом по диалогам</li><li>ci/cd, сквозной трейсинг, ни одного security-инцидента</li></ul></div>
       </div>
       <div class="job">
         <span class="when">10.2025 — 12.2025</span>
-        <div><h3>Самостоятельные проекты</h3><div class="pos">автоматизация и генеративные модели</div>
-          <ul><li>платный заказ на n8n: новая запись встречи в облаке → аудио → whisper → разметка спикеров → саммари в телеграм и на почту, без ручных шагов</li><li>open-source llm (qwen и другие) на арендованных GPU в runpod</li><li>генерация изображений и видео: обучение LoRA, апскейл, доработка пайплайнов ComfyUI, Higgsfield</li></ul></div>
+        <div><h3>Самостоятельные проекты</h3><div class="pos">fullstack-разработчик, исследование и прототипирование ии-решений</div>
+          <ul><li>разбирал агентные фреймворки и harness-системы, сравнивал модели по качеству, стоимости и задержке</li><li>собрал прототипы rag-пайплайна и чат-виджета, которые легли в основу Sevora</li><li>платный заказ на n8n: новая запись встречи в облаке → аудио → whisper → разметка спикеров → саммари в телеграм и на почту, без ручных шагов</li><li>open-source llm (qwen и другие) на арендованных GPU в runpod</li><li>генерация изображений и видео: обучение LoRA, апскейл, доработка пайплайнов ComfyUI, Higgsfield</li></ul></div>
       </div>
       <div class="job">
         <span class="when">01.2024 — 09.2025</span>
@@ -287,10 +289,10 @@ footer { font-size: 13px; color: var(--muted); }
   <section aria-labelledby="stack-h">
     <h2 id="stack-h">Стек</h2>
     <div class="stack-groups">
-      <div class="sg"><span class="label">ai</span><div class="stack"><span class="hl">rag</span><span class="hl">openai api</span><span class="hl">claude api</span><span class="hl">claude code</span><span>mcp</span><span>qdrant</span><span>reranking</span><span>prompt engineering</span><span>n8n</span><span>whisper</span><span>comfyui</span><span>runpod</span></div></div>
-      <div class="sg"><span class="label">бэкенд</span><div class="stack"><span class="hl">typescript</span><span class="hl">node.js</span><span>express</span><span>python</span><span>postgresql</span><span>redis</span><span>supabase</span><span>rest api</span><span>webhooks</span></div></div>
+      <div class="sg"><span class="label">ai</span><div class="stack"><span class="hl">rag</span><span class="hl">openai api</span><span class="hl">claude api</span><span class="hl">claude code</span><span>llm</span><span>mcp</span><span>tool calling</span><span>structured output</span><span>embeddings</span><span>qdrant</span><span>reranking</span><span>prompt engineering</span><span>n8n</span><span>whisper</span><span>comfyui</span><span>runpod</span></div></div>
+      <div class="sg"><span class="label">бэкенд</span><div class="stack"><span class="hl">typescript</span><span class="hl">node.js</span><span>express</span><span>python</span><span>postgresql</span><span>sql</span><span>redis</span><span>rest api</span><span>webhooks</span></div></div>
       <div class="sg"><span class="label">инфра</span><div class="stack"><span>docker</span><span>nginx</span><span>github actions</span><span>gitlab ci</span><span>sentry</span><span>better stack</span><span>git</span></div></div>
-      <div class="sg"><span class="label">фронтенд</span><div class="stack"><span class="hl">react</span><span class="hl">next.js</span><span>redux toolkit</span><span>react query</span><span>react hook form</span><span>mobx</span><span>jest</span><span>react testing library</span><span>storybook</span><span>scss</span><span>webpack</span><span>esbuild</span></div></div>
+      <div class="sg"><span class="label">фронтенд</span><div class="stack"><span class="hl">react</span><span class="hl">next.js</span><span>redux toolkit</span><span>react query</span><span>react hook form</span><span>mobx</span><span>jest</span><span>react testing library</span><span>playwright</span><span>storybook</span><span>scss</span><span>webpack</span><span>esbuild</span></div></div>
     </div>
   </section>
 
